@@ -1,0 +1,6 @@
+type: custom:decluttering-card
+template: frigate_device_sounds_all
+variables:
+  - device_name: deck
+  - device_icon: bench-back
+  - pretty_device_name: Deck

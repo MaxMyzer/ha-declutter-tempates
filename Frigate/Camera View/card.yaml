@@ -1,0 +1,20 @@
+frigate_subdevice_objects:
+  default:
+    - title: ''
+  card:
+    type: custom:auto-entities
+    card:
+      type: entities
+      title: '[[title]]'
+    filter:
+      include:
+        - device: '[[device_name]]'
+          domain: binary_sensor
+        - device: '[[device_name]]'
+          domain: image
+        - device: '[[device_name]]'
+          domain: sensor
+      exclude:
+        - entity_id: '*sound*'
+    grid_options:
+      columns: full

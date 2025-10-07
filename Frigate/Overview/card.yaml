@@ -1,0 +1,48 @@
+frigate_device_overview:
+  default:
+    - sound_enabled: 'on'
+  card:
+    type: vertical-stack
+    cards:
+      - type: heading
+        heading: '[[pretty_name]]'
+        heading_style: title
+        icon: mdi:[[icon]]
+        tap_action:
+          action: navigate
+          navigation_path: /dashboard-cams/[[path]]
+        badges:
+          - type: entity
+            entity: camera.[[device_name]]
+      - show_state: true
+        show_name: true
+        camera_view: auto
+        type: picture-entity
+        entity: camera.[[device_name]]
+        camera_image: camera.[[device_name]]
+        name: '[[pretty_name]]'
+        image: >-
+          https://[[frigate_address]]/api/[[device_name]]/latest.webp?height=1080&bbox=1&mask=1
+      - type: heading
+        visibility:
+          - condition: state
+            entity: input_boolean.disabled
+            state: '[[sound_enabled]]'
+          - condition: numeric_state
+            entity: sensor.[[device_name]]_sound_level
+            below: 0
+        icon: mdi:volume-medium
+        heading: '[[pretty_name]] Sounds'
+        heading_style: subtitle
+        tap_action:
+          action: navigate
+          navigation_path: /dashboard-cams/all-sounds
+        badges:
+          - type: entity
+            show_state: true
+            show_icon: true
+            entity: sensor.[[device_name]]_sound_level
+          - type: entity
+            show_state: false
+            show_icon: true
+            entity: binary_sensor.[[device_name]]_sound_stale

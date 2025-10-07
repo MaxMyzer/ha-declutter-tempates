@@ -1,0 +1,9 @@
+type: custom:decluttering-card
+template: frigate_device_overview
+variables:
+  - device_name: backporch # device or zone name
+  - icon: pine-tree # icon to show
+  - pretty_name: Back Porch # Display name
+  - path: backporch # The url/path of the subview for the device
+  - sound_enabled: "on" # show link to sound overview
+  - frigate_address: 192.168.1.20:8971 # frigate server address

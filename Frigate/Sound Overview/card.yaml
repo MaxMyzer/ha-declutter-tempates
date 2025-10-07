@@ -1,0 +1,77 @@
+frigate_device_sounds_all:
+  card:
+    visibility:
+      - condition: numeric_state
+        entity: sensor.[[device_name]]_sound_level
+        below: 0
+    type: vertical-stack
+    cards:
+      - type: heading
+        heading: '[[pretty_device_name]]'
+        heading_style: title
+        icon: mdi:[[device_icon]]
+      - graph: line
+        type: sensor
+        entity: sensor.[[device_name]]_sound_level
+        detail: 2
+        hours_to_show: 1
+        grid_options:
+          columns: full
+          rows: 2
+        name: Sound Level
+      - type: tile
+        entity: binary_sensor.[[device_name]]_sound_stale
+      - type: custom:expander-card
+        expanded: true
+        title-card:
+          type: custom:mushroom-entity-card
+          entity: binary_sensor.[[device_name]]_all_sounds_all
+          secondary_info: last-updated
+        cards: # Note: you will need to adjust these categories
+          - type: custom:decluttering-card
+            template: frigate_device_sounds_group
+            variables:
+              - device_name: '[[device_name]]'
+              - type: activity
+          - type: custom:decluttering-card
+            template: frigate_device_sounds_group
+            variables:
+              - device_name: '[[device_name]]'
+              - type: danger
+          - type: custom:decluttering-card
+            template: frigate_device_sounds_group
+            variables:
+              - device_name: '[[device_name]]'
+              - type: vehicle
+          - type: custom:decluttering-card
+            template: frigate_device_sounds_group
+            variables:
+              - device_name: '[[device_name]]'
+              - type: weather
+frigate_device_sounds_group:
+  card:
+    type: custom:expander-card
+    title-card:
+      type: custom:mushroom-entity-card
+      entity: binary_sensor.[[device_name]]_all_sound_[[type]]
+      secondary_info: last-updated
+    cards:
+      - type: custom:auto-entities
+        card:
+          type: entities
+        filter:
+          template: >
+            {% set group_name =
+            "binary_sensor.[[device_name]]_all_sound_[[type]]" %} {%- for
+            entity in expand(group_name) -%}
+              {{
+                {
+                  'entity': entity.entity_id,
+                  'secondary_info': 'last-changed'
+
+                }
+              }},
+            {%- endfor %}
+          sort:
+            method: entity_id
+            reverse: true
