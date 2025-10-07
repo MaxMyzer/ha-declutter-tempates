@@ -1,2 +1,2 @@
 # ha-declutter-tempates
-Declutter card templates for HA.
+[Declutter card](https://github.com/custom-cards/decluttering-card) templates for HA.
